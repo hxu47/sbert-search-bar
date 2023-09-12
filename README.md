@@ -21,6 +21,10 @@
 * app.py - streamlit app python script
 
 * engine.py - creates embeddings for the overall projects text data and generates and saves index (FAISS object) for inference.
+  
+* monitor_data.py - compares the data currently on db storage vs the data used to train the model in production. If there is descrepencies, `DATA UPDATE REQUIRED` will be printed while `DATA UPDATE NOT REQUIRED` will be printed otherwise
+  
+* validate_changes.py - will validate code changes and possible data changes during model development and improvements. It will focus on the impact of the search index results. If results are still not affected, `CHANGE VALIDATION: SUCCESS` will be printed while `CHANGE VALIDATION: FAILURE` will be printed otherwise.
 
 
 ### Execution Steps:
