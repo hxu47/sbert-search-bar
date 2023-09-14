@@ -14,7 +14,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 
 **Repos**
 
-- search bar repo: [https://github.com/projectpro-product/sbert-search-bar.git](https://github.com/projectpro-product/sbert-search-bar.git)
+- search bar repo: [https://github.com/hxu47/sbert-search-bar.git](https://github.com/hxu47/sbert-search-bar.git)
     - Production branch: `prod`
     - Staging branch: `stage`
 - jenkins-server repo: [https://github.com/kedardezyre/camille_projects.git](https://github.com/kedardezyre/camille_projects.git)
@@ -44,7 +44,8 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 **Note:**
 
 - Instance type: t2.medium, ubuntu 22.04, 30GB
-- Instance public IP: [http://54.186.23.242/](http://54.186.23.242/)
+- Inbound rules:  SSH, Customer TCP - 8502
+- Instance public IP: [http://34.207.211.244/](http://34.207.211.244/)
 - SSH in the instance
     
     ```bash
@@ -77,9 +78,9 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 - Clone search bar repo and pull `repo` branch for most recent updates
     
     ```bash
-    git clone [https://github.com/projectpro-product/sbert-search-bar.git](https://github.com/projectpro-product/sbert-search-bar.git)
+    git clone [https://github.com/hxu47/sbert-search-bar.git](https://github.com/hxu47/sbert-search-bar.git)
     cd sbert-search-bar
-    git remote set-url origin https://<username>:<person-access-token>@github.com/projectpro-product/sbert-search-bar.git
+    git remote set-url origin https://<username>:<person-access-token>@github.com/hxu47/sbert-search-bar.git
     git fetch --all
     git pull origin prod
     ```
