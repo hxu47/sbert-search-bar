@@ -29,7 +29,7 @@ pipeline {
                         doGenerateSubmoduleConfigurations: false, 
                         extensions: [], 
                         submoduleCfg: [], 
-                        userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://projectprodezyre:${ghPersonalAccessToken}@github.com/projectpro-product/sbert-search-bar.git"]]
+                        userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://hxu47:${ghPersonalAccessToken}@github.com/hxu47/sbert-search-bar.git"]]
                     ])
                 }
                 
@@ -53,7 +53,7 @@ pipeline {
                         doGenerateSubmoduleConfigurations: false, 
                         extensions: [], 
                         submoduleCfg: [], 
-                        userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://projectprodezyre:${ghPersonalAccessToken}@github.com/projectpro-product/sbert-search-bar.git"]]
+                        userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://hxu47:${ghPersonalAccessToken}@github.com/hxu47/sbert-search-bar.git"]]
                     ])
                     sh("git pull origin ${env.ghprbSourceBranch} --rebase")
                     
@@ -63,7 +63,7 @@ pipeline {
                         doGenerateSubmoduleConfigurations: false, 
                         extensions: [], 
                         submoduleCfg: [], 
-                        userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://projectprodezyre:${ghPersonalAccessToken}@github.com/projectpro-product/sbert-search-bar.git"]]
+                        userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://hxu47:${ghPersonalAccessToken}@github.com/hxu47/sbert-search-bar.git"]]
                     ])
                     sh("git checkout stage")
                     sh("git reset --hard HEAD")
