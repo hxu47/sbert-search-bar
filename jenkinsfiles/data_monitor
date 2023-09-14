@@ -59,7 +59,7 @@ pipeline {
                     if (sh(returnStdout: true, script: 'cat log.txt | tail -n 1').contains("DATA UPDATE REQUIRED")) {
                         echo "[info] Triggering update-searchbar job"
                         currentBuild.result = 'SUCCESS'
-                        build job: 'job-update-searchbar', parameters: []
+                        build job: 'update-searchbar', parameters: []
                     } else {
                         echo "[info] No changes in data - aborting"
                         currentBuild.result = 'ABORTED'
