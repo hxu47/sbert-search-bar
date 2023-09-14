@@ -2,7 +2,7 @@
 
 # Objective
 
-Create an SBERT and FAISS based search bar and ensure that any change in the training data, i.e feature store, or any change in the code, i.e resulting from hyper-parameter tuning or bert/faiss model upgrade, will trigger an end-to-end training job without disruption of the service already in production
+To create an SBERT and FAISS-based search bar, ensure that any changes in the training data (i.e. feature store) or code (i.e. hyper-parameter tuning or BERT/FAISS model upgrade) trigger an end-to-end training job without disrupting the already-in-production service.
 
 # Pre-requisites
 
@@ -17,7 +17,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 - search bar repo: [https://github.com/hxu47/sbert-search-bar.git](https://github.com/hxu47/sbert-search-bar.git)
     - Production branch: `prod`
     - Staging branch: `stage`
-- jenkins-server repo: [https://github.com/kedardezyre/camille_projects.git](https://github.com/kedardezyre/camille_projects.git)
+- jenkins-server repo: [https://github.com/hxu47/jenkins-server.git](https://github.com/hxu47/jenkins-server.git)
     - branch-name: `jenkinsserver`
 
 **Create personal access token**
@@ -26,7 +26,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 - Go to [https://github.com/settings/tokens](https://github.com/settings/tokens)
 - Click on “Generate new token” and choose “classic”.
     
-    ![Untitled](tutorial/Untitled.png)
+    ![Token](tutorial/token.png)
     
 - Fill in some notes to describe your token
 - Select the expiration length
@@ -34,8 +34,8 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 - Copy the token and save it in a safe place
     
     ```bash
-    # personal access token - expire on 2022-12-17
-    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
+    # personal access token - expire on 2023-10-11
+    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
     ```
     
 
@@ -106,7 +106,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 **Note:**
 
 - Instance type: t2.large, ubuntu 22.04, 30GB
-- Instance public IP: [http://35.93.71.86/](http://54.186.23.242/)
+- Instance public IP: [http://100.26.156.56/](http://100.26.156.56/)
 - SSH in the instance
     
     ```bash
@@ -142,10 +142,10 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 - Clone jenkins-server repo
     
     ```bash
-    git clone [https://github.com/kedardezyre/camille_projects.git](https://github.com/kedardezyre/camille_projects.git)
-    cd camille_projects
-    git remote set-url origin https://<username>:<person-access-token>@[github.com/kedardezyre/camille_projects.git](https://github.com/kedardezyre/camille_projects.git)
-    git fetch jenkinsserver
+    git clone [https://github.com/hxu47/jenkins-server.git](https://github.com/hxu47/jenkins-server.git)
+    cd jenkins-server
+    git remote set-url origin https://<username>:<person-access-token>@github.com/hxu47/jenkins-server.git](https://github.com/hxu47/jenkins-server.git)
+    git fetch --all
     git pull origin jenkinsserver
     ```
     
@@ -164,7 +164,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
         sudo docker logs jenkins | less
         ```
         
-    - Go to [http://35.93.71.86:8080](http://54.201.1.62:8080/job/search-bar-ml-job/) and follow steps
+    - Go to [http://100.26.156.56:8080](http://100.26.156.56:8080/job/search-bar-ml-job/) and follow steps
 - Install default plugins
 - Install additional plugins
     - Github Pull Request Builder
@@ -180,7 +180,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 
 1. **Job 1: Update search bar**
     
-    ![ProjectPro (3).png](tutorial/ProjectPro_(3).png)
+    ![t3.png](tutorial/t3.png)
     
     - SSH into Searchbar server, update the code or data and restart the app
     - Freestyle job
@@ -217,7 +217,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
         - Test
 2. **Job 2: Data monitor**
     
-    ![ProjectPro (2).png](tutorial/ProjectPro_(2).png)
+    ![t2.png](tutorial/t2.png)
     
     - Runs periodically: Keeps checking whether the data currently in production is same as training data of the model currently in production
     - Pipeline job
@@ -250,7 +250,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
                             doGenerateSubmoduleConfigurations: false, 
                             extensions: [], 
                             submoduleCfg: [], 
-                            userRemoteConfigs: [[credentialsId: "github-credential", url: "https://kthouz:${ghPersonalAccessToken}@github.com/projectpro-product/sbert-search-bar.git"]]
+                            userRemoteConfigs: [[credentialsId: "github-credential", url: "https://hxu47:${ghPersonalAccessToken}@github.com/hxu47/sbert-search-bar.git"]]
                         ]) 
                     }  
                 }
@@ -320,7 +320,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
     
 - Demo how to setup data monitor as a pipeline job
     - Avoid concurrent builds
-    - Link the pipeline to a Github project: [https://github.com/projectpro-product/sbert-search-bar/](https://github.com/projectpro-product/sbert-search-bar/)
+    - Link the pipeline to a Github project: [https://github.com/hxu47/sbert-search-bar/](https://github.com/hxu47/sbert-search-bar/)
     - Define parameters:
         - GH_PERSONAL_ACCESS_TOKEN
     - Define build schedule
@@ -328,7 +328,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
     - Test
 1. **Job 3: Code monitor**
     
-    ![ProjectPro (4).png](tutorial/ProjectPro_(4).png)
+    ![t4.png](tutorial/t4.png)
     
     - Triggered by PR: When there is code change, this will test and validate the code change as well as current data change against any negative impact on the search.index accuracy
     - Pipeline job
@@ -367,7 +367,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
                                 doGenerateSubmoduleConfigurations: false, 
                                 extensions: [], 
                                 submoduleCfg: [], 
-                                userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://projectprodezyre:${ghPersonalAccessToken}@github.com/projectpro-product/sbert-search-bar.git"]]
+                                userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://hxu47:${ghPersonalAccessToken}@github.com/hxu47/sbert-search-bar.git"]]
                             ])
                         }
                         
@@ -391,7 +391,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
                                 doGenerateSubmoduleConfigurations: false, 
                                 extensions: [], 
                                 submoduleCfg: [], 
-                                userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://projectprodezyre:${ghPersonalAccessToken}@github.com/projectpro-product/sbert-search-bar.git"]]
+                                userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://hxu47:${ghPersonalAccessToken}@github.com/hxu47/sbert-search-bar.git"]]
                             ])
                             sh("git pull origin ${env.ghprbSourceBranch} --rebase")
                             
@@ -401,7 +401,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
                                 doGenerateSubmoduleConfigurations: false, 
                                 extensions: [], 
                                 submoduleCfg: [], 
-                                userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://projectprodezyre:${ghPersonalAccessToken}@github.com/projectpro-product/sbert-search-bar.git"]]
+                                userRemoteConfigs: [[credentialsId: "github-credentials", url: "https://hxu47:${ghPersonalAccessToken}@github.com/hxu47/sbert-search-bar.git"]]
                             ])
                             sh("git checkout stage")
                             sh("git reset --hard HEAD")
@@ -505,11 +505,11 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
         
     - Demo how to setup data monitor as a pipeline job
         - Integrate Jenkins with Github via webhooks and Github Pull Request Builder
-            - http://35.93.71.86:8080/ghprbhook
-            - http://35.93.71.86:8080/github-webhook/
+            - http://100.26.156.56:8080/ghprbhook
+            - http://100.26.156.56:8080/github-webhook/
         - Avoid concurrent builds
         - Link the pipeline to a Github project:
-            - [https://github.com/projectpro-product/sbert-search-bar/](https://github.com/projectpro-product/sbert-search-bar/)
+            - [https://github.com/hxu47/sbert-search-bar/](https://github.com/hxu47/sbert-search-bar/)
         - Define parameters:
             - GH_PERSONAL_ACCESS_TOKEN
         - Link the pipeline to a jenkinsfile on Github repo
@@ -518,7 +518,7 @@ Create an SBERT and FAISS based search bar and ensure that any change in the tra
 
 # Summary
 
-![ProjectPro (5).png](tutorial/ProjectPro_(5).png)
+![t5.png](tutorial/t5.png)
 
 # Concluding Tests
 
