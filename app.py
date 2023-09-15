@@ -7,12 +7,12 @@ import faiss
 import os
 
 # -- Set page config
-apptitle = 'ProjectPro Search Bar'
+apptitle = 'Sophie's Search Bar'
 
 st.set_page_config(page_title=apptitle, page_icon="search")
-st.image(f'{config.DIR_ROOT}/projectpro_logo_black.png', width=350)
+st.image(f'{config.DIR_ROOT}/logo.png', width=350)
 # Title the app
-st.title('ProjectPro Search Bar')
+st.title('Sophie's Search Bar')
 # read data
 df = pd.read_csv(f"{config.DIR_DATA}/project_mappings.csv")
 
