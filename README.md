@@ -12,6 +12,8 @@ The search engine application utilizes the Faiss similarity search algorithm and
 
 Leveraging SBERT, a variant of the pre-trained BERT network, I generate sentence embeddings for each description. These embeddings can then be compared using cosine-similarity, enabling a semantic search across numerous sentences in just a few seconds. To retrieve the top results, I use the Facebook AI Similarity Search (Faiss) to create a query index from all documents.
 
+![web](app_screenshot.png)
+
 ## Tech Stack
 
 - **Language:** Python
