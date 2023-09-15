@@ -17,6 +17,7 @@ Leveraging SBERT, a variant of the pre-trained BERT network, I generate sentence
 - **Language:** Python
 - **Services:** AWS EC2, Docker, Streamlit, Jenkins, Github.
 
+
 ## Project Workflow:
 ![t5](tutorial/t5.png)
 1. Deploy the Search Bar App on an AWS EC2 instance.
