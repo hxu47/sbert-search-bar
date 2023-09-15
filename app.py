@@ -10,7 +10,7 @@ import os
 apptitle = "Sophie's Search Bar"
 
 st.set_page_config(page_title=apptitle, page_icon="search")
-st.image(f'{config.DIR_ROOT}/logo.png', width=350)
+st.image(f'{config.DIR_ROOT}/logo.png', width=150)
 # Title the app
 st.title("Sophie's Search Bar")
 # read data
