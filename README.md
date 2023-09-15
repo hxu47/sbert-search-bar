@@ -11,6 +11,7 @@ The primary goal of this project is to establish a CI/CD pipeline for a search e
 The search engine application utilizes the Faiss similarity search algorithm and is deployed on Streamlit. With the search bar, users can effortlessly find project descriptions, as the application organizes them into a streamlined index and displays the most relevant results.
 
 Leveraging SBERT, a variant of the pre-trained BERT network, I generate sentence embeddings for each description. These embeddings can then be compared using cosine-similarity, enabling a semantic search across numerous sentences in just a few seconds. To retrieve the top results, I use the Facebook AI Similarity Search (Faiss) to create a query index from all documents.
+![web](web.png)
 
 ## Tech Stack
 
