@@ -1,51 +1,73 @@
-# ProjectPro-Search-Bar with SBERT and FAISS
+# CI/CD Pipeline for Search Engine Application
 
-### Project Files Description:
+## Business Overview
 
-* data
-  
-  * project_mappings.csv - Index mapping for every project
+Delivering a new software version requires an organized and automated series of steps, collectively known as the Continuous Integration and Continuous Deployment (CI/CD) pipeline. This pipeline directs the software development process through development, testing, and deployment, with an emphasis on automation to minimize human error and ensure consistency.
 
-* output
+The primary goal of this project is to establish a CI/CD pipeline for a search engine application using Jenkins, a renowned open-source automation server.
 
-  * search.index - FAISS object for inference
+## About the Search Engine Application
 
-* src
+The search engine application utilizes the Faiss similarity search algorithm and is deployed on Streamlit. With the search bar, users can effortlessly find project descriptions, as the application organizes them into a streamlined index and displays the most relevant results.
 
-  * dataset.py - python script to fetch datasets from MongoDB
-  * embeddings.py - python script to create embeddings using SBERT
-  * processing.py - python script to preprocess data 
-  * query_search.py - python inference script to generate search results
-  * utils.py - python script for generating overall dataset
+Leveraging SBERT, a variant of the pre-trained BERT network, I generate sentence embeddings for each description. These embeddings can then be compared using cosine-similarity, enabling a semantic search across numerous sentences in just a few seconds. To retrieve the top results, I use the Facebook AI Similarity Search (Faiss) to create a query index from all documents.
 
-* app.py - streamlit app python script
+## Tech Stack
 
-* engine.py - creates embeddings for the overall projects text data and generates and saves index (FAISS object) for inference.
-  
-* monitor_data.py - compares the data currently on db storage vs the data used to train the model in production. If there is descrepencies, `DATA UPDATE REQUIRED` will be printed while `DATA UPDATE NOT REQUIRED` will be printed otherwise
-  
-* validate_changes.py - will validate code changes and possible data changes during model development and improvements. It will focus on the impact of the search index results. If results are still not affected, `CHANGE VALIDATION: SUCCESS` will be printed while `CHANGE VALIDATION: FAILURE` will be printed otherwise.
+- **Language:** Python
+- **Services:** AWS EC2, Docker, Streamlit, Jenkins, Github.
 
 
-### Execution Steps:
+## Project Workflow:
+![t5](tutorial/t5.png)
+1. Deploy the Search Bar App on an AWS EC2 instance.
+2. Set up the Jenkins Server on a separate AWS EC2 instance.
+3. Establish the following Jenkins Jobs to maintain the search bar app's currency with minimal disruption:
 
-* Install requirements with the command "pip3 install -r requirements.txt"
+   - **Update Search Bar Job**: Allows Jenkins to update the search bar application.
+   
+   - **Data Monitor Job**: Compares the data in production against the source data. If differences are detected, it triggers the update search bar job.
+     
+   - **Code Monitor Job**: Monitors changes in the codebase. It validates any changes against tests. If changes pass the test, the update search bar job is triggered.
 
-* Run engine.py to create embeddings and save the FAISS object with the command "python3 engine.py"
+With this setup, any addition to the source database will be detected by the data monitor job, which will then perform necessary updates on the search bar server. Likewise, when a pull request is created through GitHub, a webhook activates the code monitor job. This job tests all changes to ensure there's no adverse impact on the search index. If the changes are deemed safe, the update search bar job is triggered to implement necessary updates.
 
-* Run app.py with the command "streamlit run app.py"
 
-### CI/CD Pipeline
-* This pipeline periodically checks for any change in training data or code and proceed with functional and ML tests. If all tests check out, the changes get applied in production
-* Important branches (not to be deleted)
-  * `prod`: this is the release branch
-  * `stage`: this is the branch where all other pull requests need to be merged manually after peer-review
-* Servers
-  * Jenkins Server: http://35.93.71.86:8080/
-  * SearchBar Server: http://54.186.23.242:8501/
-* Jenkins configurations:
-  * login username: `admin`
-  * login password: `<contact this repo admin>`
-  * Jenkins codebase: https://github.com/kedardezyre/camille_projects/tree/jenkinsserver
-* Additional notes (Still Work In Progress): https://github.com/projectpro-product/sbert-search-bar/blob/prod/tutorial.md
+## Project Files Description
+
+### Data
+- **project_mappings.csv**: Index mapping for every project
+
+### Output
+- **search.index**: FAISS object for inference
+
+### Src
+- **dataset.py**: Python script to fetch datasets from MongoDB
+- **embeddings.py**: Python script to create embeddings using SBERT
+- **processing.py**: Python script to preprocess data
+- **query_search.py**: Python inference script to generate search results
+- **utils.py**: Python script for generating the overall dataset
+- **app.py**: Streamlit app python script
+- **engine.py**: Creates embeddings for the overall projects' text data and generates and saves the index (FAISS object) for inference.
+
+## Execution Steps:
+
+1. Install the required packages: `pip3 install -r requirements.txt`
+2. Run `engine.py` to create embeddings and save the FAISS object: `python3 engine.py`
+3. Launch the Streamlit app: `streamlit run app.py`
+
+
+## CI/CD Pipeline
+
+The CI/CD pipeline is designed to periodically scan for changes in either the training data or code. If changes are detected, a series of functional and machine learning tests are run. Only after passing all tests will these changes be integrated into the production environment.
+
+### Important Branches:
+- **prod**: The release branch.
+- **stage**: The branch where all pull requests should be merged manually after peer-review.
+
+## Servers
+
+- **Jenkins Server**: [http://100.26.156.56:8080/](http://100.26.156.56:8080/)
+- **SearchBar Server**: [http://100.26.156.56:8502/](http://100.26.156.56:8502/)
+
 
